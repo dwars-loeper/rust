@@ -75,7 +75,8 @@ check-aux:
 		--doc
 	# In `std` we cannot test everything. Tests should be disabled under `skip_missing_miri_shims`.
 	# We cover all three tier 1 architectures and operating systems.
-	$(Q)MIRIFLAGS="-Zmiri-disable-isolation --cfg skip_missing_miri_shims" BOOTSTRAP_SKIP_TARGET_SANITY=1 \
+	$(Q)MIRIFLAGS="--cfg skip_missing_miri_shims -Zmiri-disable-isolation -Zmiri-no-short-fd-operations" \
+		BOOTSTRAP_SKIP_TARGET_SANITY=1 \
 		$(BOOTSTRAP) miri --stage 2 \
 		library/std \
 		$(BOOTSTRAP_ARGS) \
